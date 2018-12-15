@@ -3,3 +3,31 @@
 
 <h2>Dashboard</h2>
 <h5>Hurray! you are logged in.</h5>
+
+
+<form id="search-form">
+  <div class="input-field">
+    <input id="searchText" type="text" class="validate" name="searchText">
+    <label for="searchText">Search</label>
+  </div>
+
+  <div style="text-align: right;">
+    <input class="btn" type="submit" value="Search" />
+  </div>
+</form>
+
+
+<div class="row">
+  <div class="col">
+    <div class="list-group">
+      {{#each products}}
+      {{#unless results}}
+      {{!-- <a href="#" class="list-group-item list-group-item-action">{{this.burger_name}} <button type="button"
+          data-id="{{this.id}}" class="btn btn-secondary devourit" style="float: right;">Devour it!</button> </a> --}}
+
+      a
+      {{/unless}}
+      {{/each}}
+    </div>
+  </div>
+</div>
