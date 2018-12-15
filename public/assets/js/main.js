@@ -28,43 +28,64 @@ $(function () {
     }
 
     function searchCriteria(searchData) {
+        let dataResponse = [];
         console.log()
+        $("#dataLogin").empty();
+
         $.get("/search/" + searchData.search, function(data) {
-            console.log(data)
+            dataResponse = JSON.parse(data).results;
+
+            console.log(dataResponse)
+
+            for(let i = 0; i < 10; i++){
+                
+                var rowData = $("<tr>");
+                rowData.addClass("product-data");
+                rowData.attr("id", i);
+
+                var colName = $("<td>");
+                colName.append(dataResponse[i].name);
+
+                var colCategory = $("<td>");
+                colCategory.append(dataResponse[i].category);
+
+                var colBrand = $("<td>");
+                colBrand.append(dataResponse[i].brand);
+
+                var colPrice = $("<td>");
+                colPrice.append(dataResponse[i].price);
+
+                
+
+                var colQuantity = $("<td>");
+                colQuantity.append("<input id='quantity' type='text' class='validate' style='width: 50px; text-align: center;'></input>");
+
+                var colAdd = $("<td id='add'>");
+                colAdd.append("<i class='material-icons'>add</i>");
+
+                rowData.append(colName)
+                    .append(colCategory)
+                    .append(colBrand)
+                    .append(colPrice)
+                    .append(colQuantity)                    
+                    .append(colAdd)
+
+                $("#dataProducts").append(rowData);
+            }            
         })
-            // .then(getAuthors);
     }
 
-//     // Function for retrieving authors and getting them ready to be rendered to the page
-//   function getAuthors() {
-//     $.get("/api/authors", function(data) {
-//       var rowsToAdd = [];
-//       for (var i = 0; i < data.length; i++) {
-//         rowsToAdd.push(createAuthorRow(data[i]));
-//       }
-//       renderAuthorList(rowsToAdd);
-//       nameInput.val("");
-//     });
-//   }
+    $(document).on("click", "#add", function () {
+        
+        toEdit = $(this).parent().attr("id");
+        console.log(toEdit)
+        // var docum = db.collection("trains").doc($(this).parent().attr("id")).get().then(function (doc) {
+        //     $("#inputName").val(doc.data().name);
+        //     $("#inputDestination").val(doc.data().destination);
+        //     $("#inputStart").val(doc.data().startTime);
+        //     $("#inputFrequency").val(doc.data().frequency);
+        //     $("#newTrainSubmit").text("Update Train");
+        // })
+    });
 
-//   // A function for rendering the list of authors to the page
-//   function renderAuthorList(rows) {
-//     authorList.children().not(":last").remove();
-//     authorContainer.children(".alert").remove();
-//     if (rows.length) {
-//       console.log(rows);
-//       authorList.prepend(rows);
-//     }
-//     else {
-//       renderEmpty();
-//     }
-//   }
-
-//   // Function for handling what to render when there are no authors
-//   function renderEmpty() {
-//     var alertDiv = $("<div>");
-//     alertDiv.addClass("alert alert-danger");
-//     alertDiv.text("You must create an Author before you can create a Post.");
-//     authorContainer.append(alertDiv);
-//   }
 })

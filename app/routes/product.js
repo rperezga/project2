@@ -1,5 +1,5 @@
-var api_key = 'SEM3244D45AB8B28939534F5126E8135144A';
-var api_secret = 'MTgzNjg3ZGQ2YTIyYmQ0MWM3MDUwYmQ4ZWZmYWE0NDA';
+var api_key = process.env.api_key;
+var api_secret = process.env.api_secret;
 var sem3 = require('semantics3-node')(api_key, api_secret);
 
 
