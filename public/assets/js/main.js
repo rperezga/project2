@@ -1,6 +1,46 @@
 $(function () {
     var searchText = $("#searchText");
 
+    $.get("/userLogin", function(data) {   
+        $.get("/myInventory/" + data, function(newData){
+            let inv = JSON.parse(newData)
+
+            for(let i = 0; i < inv.length; i++){
+                
+                var rowData = $("<tr>");
+                rowData.addClass("product-data");
+                rowData.attr("id", i);
+
+                var colName = $("<td>");
+                colName.append(inv[i].name);
+
+                var colCategory = $("<td>");
+                colCategory.append(inv[i].category);
+
+                var colBrand = $("<td>");
+                colBrand.append(inv[i].brand);
+
+                var colPrice = $("<td>");
+                colPrice.append(inv[i].price);
+
+                var colQuantity = $("<td>");
+                colQuantity.append(inv[i].quantity);                
+
+                var colEdit = $("<td id='edit'>");
+                colEdit.append("<i class='material-icons'>create</i>");
+
+                rowData.append(colName)
+                    .append(colCategory)
+                    .append(colBrand)
+                    .append(colPrice)
+                    .append(colQuantity)                    
+                    .append(colEdit)
+
+                $("#dataInventory").append(rowData);
+            }
+        })
+    });
+
 
     $('#logout').on('click', () => {
 
@@ -11,15 +51,12 @@ $(function () {
 
     $(document).on("submit", "#search-form", handleSearchFormSubmit);
 
-    // A function to handle what happens when the form is submitted to create a new Author
     function handleSearchFormSubmit(event) {
         event.preventDefault();
-        // Don't do anything if the name fields hasn't been filled out
 
         if (!searchText.val().trim().trim()) {
             return;
-        }
-        // Calling the upsertAuthor function and passing in the value of the name input
+        }        
         searchCriteria({
             search: searchText
                 .val()
@@ -27,15 +64,14 @@ $(function () {
         });
     }
 
+    let dataResponse = [];
+
     function searchCriteria(searchData) {
-        let dataResponse = [];
-        console.log()
+        
         $("#dataLogin").empty();
 
         $.get("/search/" + searchData.search, function(data) {
             dataResponse = JSON.parse(data).results;
-
-            console.log(dataResponse)
 
             for(let i = 0; i < 10; i++){
                 
@@ -57,8 +93,8 @@ $(function () {
 
                 
 
-                var colQuantity = $("<td>");
-                colQuantity.append("<input id='quantity' type='text' class='validate' style='width: 50px; text-align: center;'></input>");
+                var colQuantity = $("<td id='quantity'>");
+                colQuantity.append("<input type='text' value='0' style='width: 50px; text-align: center;'></input>");
 
                 var colAdd = $("<td id='add'>");
                 colAdd.append("<i class='material-icons'>add</i>");
@@ -78,14 +114,14 @@ $(function () {
     $(document).on("click", "#add", function () {
         
         toEdit = $(this).parent().attr("id");
-        console.log(toEdit)
-        // var docum = db.collection("trains").doc($(this).parent().attr("id")).get().then(function (doc) {
-        //     $("#inputName").val(doc.data().name);
-        //     $("#inputDestination").val(doc.data().destination);
-        //     $("#inputStart").val(doc.data().startTime);
-        //     $("#inputFrequency").val(doc.data().frequency);
-        //     $("#newTrainSubmit").text("Update Train");
-        // })
+        let quantity = $(this).closest('tr').find('input').val();
+
+        $.get("/userLogin", function(data) {
+            $.post("/saveToInventory", ({data: dataResponse[toEdit], quantity: quantity, userId: data}),function(){
+                //Redirect to my inv page
+            })
+        });
+
     });
 
 })

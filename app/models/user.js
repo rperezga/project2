@@ -18,14 +18,6 @@ module.exports = function(sequelize, Sequelize) {
             notEmpty: true
         },
  
-        username: {
-            type: Sequelize.TEXT
-        },
- 
-        about: {
-            type: Sequelize.TEXT
-        },
- 
         email: {
             type: Sequelize.STRING,
             validate: {
@@ -47,8 +39,13 @@ module.exports = function(sequelize, Sequelize) {
             defaultValue: 'active'
         }
  
- 
     });
+
+    User.associate = function(models) {
+        User.hasMany(models.product, {
+          onDelete: "cascade"
+        });
+      };
  
     return User;
  

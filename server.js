@@ -18,43 +18,32 @@ app.use(passport.session()); // persistent login sessions
 
 app.use(express.static("public"));
 
-
 //For Handlebars
-// app.set('view', '/app/views')
 app.engine('hbs', exphbs({extname: '.hbs', defaultLayout: "main"}));
 app.set('view engine', '.hbs');
-
 
 app.get('/', function (req, res) {
     res.render("signin");
 });
 
-
 //Models
 var models = require("./app/models");
-
 
 //Routes
 var authRoute = require('./app/routes/auth.js')(app, passport);
 require("./app/routes/product.js")(app);
 
-
 //load passport strategies
 require('./app/config/passport/passport.js')(passport, models.user);
-
 
 //Sync Database
 models.sequelize.sync().then(function () {
     console.log('Nice! Database looks fine')
-
 }).catch(function (err) {
     console.log(err, "Something went wrong with the Database Update!")
 });
 
-
-
 app.listen(5000, function (err) {
     if (!err)
         console.log("Site is live"); else console.log(err)
-
 });
