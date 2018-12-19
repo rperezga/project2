@@ -1,9 +1,9 @@
 //load bcrypt
 var bCrypt = require('bcrypt-nodejs');
 
-module.exports = function (passport, user) {
+module.exports = function (passport, User) {
 
-    var User = user;
+    var User = User;
     var LocalStrategy = require('passport-local').Strategy;
 
     passport.serializeUser(function (user, done) {
@@ -35,7 +35,7 @@ module.exports = function (passport, user) {
 
             var generateHash = function (password) {
                 return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
-            };
+            };            
 
             User.findOne({ where: { email: email } }).then(function (user) {
 
@@ -81,8 +81,6 @@ module.exports = function (passport, user) {
         },
 
         function (req, email, password, done) {
-
-            var User = user;
 
             var isValidPassword = function (userpass, password) {
                 return bCrypt.compareSync(password, userpass);

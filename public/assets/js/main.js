@@ -1,6 +1,46 @@
 $(function () {
     var searchText = $("#searchText");
 
+    $.get("/userLogin", function(data) {   
+        $.get("/myInventory/" + data, function(newData){
+            let inv = JSON.parse(newData)
+
+            for(let i = 0; i < inv.length; i++){
+                
+                var rowData = $("<tr>");
+                rowData.addClass("product-data");
+                rowData.attr("id", i);
+
+                var colName = $("<td>");
+                colName.append(inv[i].name);
+
+                var colCategory = $("<td>");
+                colCategory.append(inv[i].category);
+
+                var colBrand = $("<td>");
+                colBrand.append(inv[i].brand);
+
+                var colPrice = $("<td>");
+                colPrice.append(inv[i].price);
+
+                var colQuantity = $("<td>");
+                colQuantity.append(inv[i].quantity);                
+
+                var colEdit = $("<td id='edit'>");
+                colEdit.append("<i class='material-icons'>create</i>");
+
+                rowData.append(colName)
+                    .append(colCategory)
+                    .append(colBrand)
+                    .append(colPrice)
+                    .append(colQuantity)                    
+                    .append(colEdit)
+
+                $("#dataInventory").append(rowData);
+            }
+        })
+    });
+
 
     $('#logout').on('click', () => {
 
@@ -11,15 +51,12 @@ $(function () {
 
     $(document).on("submit", "#search-form", handleSearchFormSubmit);
 
-    // A function to handle what happens when the form is submitted to create a new Author
     function handleSearchFormSubmit(event) {
         event.preventDefault();
-        // Don't do anything if the name fields hasn't been filled out
 
         if (!searchText.val().trim().trim()) {
             return;
-        }
-        // Calling the upsertAuthor function and passing in the value of the name input
+        }        
         searchCriteria({
             search: searchText
                 .val()
@@ -27,44 +64,83 @@ $(function () {
         });
     }
 
+    let dataResponse = [];
+
     function searchCriteria(searchData) {
-        console.log()
+        
+        $("#dataLogin").empty();
+
         $.get("/search/" + searchData.search, function(data) {
-            console.log(data)
+            dataResponse = JSON.parse(data).results;
+
+            for(let i = 0; i < 10; i++){
+                
+                var rowData = $("<tr>");
+                rowData.addClass("product-data");
+                rowData.attr("id", i);
+
+                var colName = $("<td>");
+                colName.append(dataResponse[i].name);
+
+                var colCategory = $("<td>");
+                colCategory.append(dataResponse[i].category);
+
+                var colBrand = $("<td>");
+                colBrand.append(dataResponse[i].brand);
+
+                var colPrice = $("<td>");
+                colPrice.append(dataResponse[i].price);
+
+                
+
+                var colQuantity = $("<td id='quantity'>");
+                colQuantity.append("<input type='text' value='0' style='width: 50px; text-align: center;'></input>");
+
+                var colAdd = $("<td id='add'>");
+                colAdd.append("<i class='material-icons'>add</i>");
+
+                rowData.append(colName)
+                    .append(colCategory)
+                    .append(colBrand)
+                    .append(colPrice)
+                    .append(colQuantity)                    
+                    .append(colAdd)
+
+                $("#dataProducts").append(rowData);
+            }            
         })
-            // .then(getAuthors);
     }
 
-//     // Function for retrieving authors and getting them ready to be rendered to the page
-//   function getAuthors() {
-//     $.get("/api/authors", function(data) {
-//       var rowsToAdd = [];
-//       for (var i = 0; i < data.length; i++) {
-//         rowsToAdd.push(createAuthorRow(data[i]));
-//       }
-//       renderAuthorList(rowsToAdd);
-//       nameInput.val("");
-//     });
-//   }
+    // --- add products based on searching
+    $(document).on("click", "#add", function () {
+        
+        toEdit = $(this).parent().attr("id");
+        let quantity = $(this).closest('tr').find('input').val();
 
-//   // A function for rendering the list of authors to the page
-//   function renderAuthorList(rows) {
-//     authorList.children().not(":last").remove();
-//     authorContainer.children(".alert").remove();
-//     if (rows.length) {
-//       console.log(rows);
-//       authorList.prepend(rows);
-//     }
-//     else {
-//       renderEmpty();
-//     }
-//   }
+        $.get("/userLogin", function(data) {
+            $.post("/saveToInventory", ({data: dataResponse[toEdit], quantity: quantity, userId: data}),function(){
+                //Redirect to my inv page
+            })
+        });
 
-//   // Function for handling what to render when there are no authors
-//   function renderEmpty() {
-//     var alertDiv = $("<div>");
-//     alertDiv.addClass("alert alert-danger");
-//     alertDiv.text("You must create an Author before you can create a Post.");
-//     authorContainer.append(alertDiv);
-//   }
-})
+    });
+
+    // --- manually add new products
+    $(document).on("click","#new-product-add",function(){
+        var newProduct = {
+            name: $("#new-product-name").val(),
+            category: $("#new-category").val(),
+            brand: $("new-brand").val(),
+            price: $("#new-price").val(),
+        };
+        var newAmount = $("#new-quantity").val();
+
+        $.get("/userLogin", function(data) {
+            $.post("/saveToInventory", ({data: newProduct, quantity: newAmount, userId: data}),function(){
+                //Redirect to my inv page
+            })
+        });
+    });
+
+});
+
