@@ -3,13 +3,17 @@ $(function () {
 
     var tempProduct = [];
 
-    $.get("/userLogin", function(data) {   
-        $.get("/myInventory/" + data, function(newData){
+    // $.get("/userLogin", function(data) {   
+    //     $.get("/myInventory/" + data, function(newData){
+
+    //To find inventory for an specific user
+    $.get("/userLogin", function (data) {
+        $.get("/myInventory/" + data, function (newData) {
             let inv = JSON.parse(newData)
             tempProduct = inv;
 
-            for(let i = 0; i < inv.length; i++){
-                
+            for (let i = 0; i < inv.length; i++) {
+
                 var rowData = $("<tr>");
                 rowData.addClass("product-data");
                 rowData.attr("id", i);
@@ -27,7 +31,7 @@ $(function () {
                 colPrice.append(inv[i].price);
 
                 var colQuantity = $("<td>");
-                colQuantity.append(inv[i].quantity);                
+                colQuantity.append(inv[i].quantity);
 
                 var colEdit = $("<td id='edit'>");
                 colEdit.append("<a class='waves-effect waves-light btn modal-trigger' id='inv-modal' href='#modal1' data-inv='"+i+"'>Edit</a>");
@@ -36,7 +40,7 @@ $(function () {
                     .append(colCategory)
                     .append(colBrand)
                     .append(colPrice)
-                    .append(colQuantity)                    
+                    .append(colQuantity)
                     .append(colEdit)
 
                 $("#dataInventory").append(rowData);
@@ -44,7 +48,7 @@ $(function () {
         })
     });
 
-
+    //To logout
     $('#logout').on('click', () => {
 
         $.get("/logout", () => {
@@ -59,7 +63,7 @@ $(function () {
 
         if (!searchText.val().trim().trim()) {
             return;
-        }        
+        }
         searchCriteria({
             search: searchText
                 .val()
@@ -70,14 +74,14 @@ $(function () {
     let dataResponse = [];
 
     function searchCriteria(searchData) {
-        
+
         $("#dataLogin").empty();
 
-        $.get("/search/" + searchData.search, function(data) {
+        $.get("/search/" + searchData.search, function (data) {
             dataResponse = JSON.parse(data).results;
 
-            for(let i = 0; i < 10; i++){
-                
+            for (let i = 0; i < 10; i++) {
+
                 var rowData = $("<tr>");
                 rowData.addClass("product-data");
                 rowData.attr("id", i);
@@ -94,7 +98,7 @@ $(function () {
                 var colPrice = $("<td>");
                 colPrice.append(dataResponse[i].price);
 
-                
+
 
                 var colQuantity = $("<td id='quantity'>");
                 colQuantity.append("<input type='text' value='0' style='width: 50px; text-align: center;'></input>");
@@ -106,30 +110,40 @@ $(function () {
                     .append(colCategory)
                     .append(colBrand)
                     .append(colPrice)
-                    .append(colQuantity)                    
+                    .append(colQuantity)
                     .append(colAdd)
 
                 $("#dataProducts").append(rowData);
-            }            
+            }
         })
     }
 
     // --- add products based on searching
     $(document).on("click", "#add", function () {
-        
+
         toEdit = $(this).parent().attr("id");
         let quantity = $(this).closest('tr').find('input').val();
 
-        $.get("/userLogin", function(data) {
-            $.post("/saveToInventory", ({data: dataResponse[toEdit], quantity: quantity, userId: data}),function(){
+        $.get("/userLogin", function (data) {
+            $.post("/saveToInventory", ({ data: dataResponse[toEdit], quantity: quantity, userId: data }), function () {
                 //Redirect to my inv page
             })
         });
 
     });
 
+
+
+    $('#search').on('click', (req, res) => {
+        window.location.href = '/search';
+    })
+
+    $('#inventory').on('click', (req, res) => {
+        window.location.href = '/dashboard';
+    })
+
     // --- manually add new products
-    $(document).on("click","#new-product-add",function(){
+    $(document).on("click", "#new-product-add", function () {
         var newProduct = {
             name: $("#new-product-name").val(),
             category: $("#new-category").val(),
@@ -138,8 +152,8 @@ $(function () {
         };
         var newAmount = $("#new-quantity").val();
 
-        $.get("/userLogin", function(data) {
-            $.post("/saveToInventory", ({data: newProduct, quantity: newAmount, userId: data}),function(){
+        $.get("/userLogin", function (data) {
+            $.post("/saveToInventory", ({ data: newProduct, quantity: newAmount, userId: data }), function () {
                 //Redirect to my inv page
             })
         });
@@ -188,8 +202,7 @@ $(function () {
             method: "PUT",
             url: "/updateInventory",
             data: newProduct
-        })
+        });
         
     });
-});
-
+})

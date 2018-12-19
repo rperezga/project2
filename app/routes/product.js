@@ -8,10 +8,8 @@ var db = require("../models");
 module.exports = function (app) {
 
   app.get("/search/:data", function (req, res) {
-
     // Build the request
     sem3.products.products_field("search", req.params.data);
-
     // Run the request
     sem3.products.get_products(
       function (err, products) {
@@ -19,9 +17,6 @@ module.exports = function (app) {
           console.log("Couldn't execute request: get_products");
           return;
         }
-        // View results of the request
-        // console.log("Results of request:\n" + JSON.stringify(products));
-
         res.json(products);
       }
     );
@@ -72,6 +67,10 @@ module.exports = function (app) {
       res.json(response)
     })
       .catch(err)
+  });
+
+  app.get("/search", function (req, res) {
+    res.render('search');
   });
 
 };
