@@ -111,10 +111,7 @@ $(function () {
         })
     }
 
-<<<<<<< HEAD
     // --- add products based on searching
-=======
->>>>>>> 5e34ef7406371dd6bf0869ed1ad62c7c7787eb14
     $(document).on("click", "#add", function () {
         
         toEdit = $(this).parent().attr("id");
@@ -128,13 +125,12 @@ $(function () {
 
     });
 
-<<<<<<< HEAD
     // --- manually add new products
     $(document).on("click","#new-product-add",function(){
         var newProduct = {
             name: $("#new-product-name").val(),
             category: $("#new-category").val(),
-            brand: $("new-brand").val(),
+            brand: $("#new-brand").val(),
             price: $("#new-price").val(),
         };
         var newAmount = $("#new-quantity").val();
@@ -148,6 +144,3 @@ $(function () {
 
 });
 
-=======
-})
->>>>>>> 5e34ef7406371dd6bf0869ed1ad62c7c7787eb14
