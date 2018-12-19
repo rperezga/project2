@@ -111,7 +111,10 @@ $(function () {
         })
     }
 
+<<<<<<< HEAD
     // --- add products based on searching
+=======
+>>>>>>> 5e34ef7406371dd6bf0869ed1ad62c7c7787eb14
     $(document).on("click", "#add", function () {
         
         toEdit = $(this).parent().attr("id");
@@ -125,6 +128,7 @@ $(function () {
 
     });
 
+<<<<<<< HEAD
     // --- manually add new products
     $(document).on("click","#new-product-add",function(){
         var newProduct = {
@@ -144,3 +148,6 @@ $(function () {
 
 });
 
+=======
+})
+>>>>>>> 5e34ef7406371dd6bf0869ed1ad62c7c7787eb14
