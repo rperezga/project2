@@ -1,9 +1,12 @@
 $(function () {
     var searchText = $("#searchText");
 
+    var tempProduct = [];
+
     $.get("/userLogin", function(data) {   
         $.get("/myInventory/" + data, function(newData){
             let inv = JSON.parse(newData)
+            tempProduct = inv;
 
             for(let i = 0; i < inv.length; i++){
                 
@@ -27,7 +30,7 @@ $(function () {
                 colQuantity.append(inv[i].quantity);                
 
                 var colEdit = $("<td id='edit'>");
-                colEdit.append("<i class='material-icons'>create</i>");
+                colEdit.append("<a class='waves-effect waves-light btn modal-trigger' id='inv-modal' href='#modal1' data-inv='"+i+"'>Edit</a>");
 
                 rowData.append(colName)
                     .append(colCategory)
@@ -141,6 +144,52 @@ $(function () {
             })
         });
     });
+    
+    // --- editing existing inventory
+    $(document).ready(function(){
+        $('.modal').modal();
+    });
 
+    var tempID;
+    $(document).on("click","#inv-modal",function(){
+
+        tempID = $(this).attr("data-inv");
+        console.log("ID: "+tempID);
+
+        console.log(tempProduct[tempID]);
+
+        $("#change-product-name").val(tempProduct[tempID].name);
+        $("#change-category").val(tempProduct[tempID].category);
+        $("#change-quantity").val(tempProduct[tempID].quantity);
+        $("#change-price").val(tempProduct[tempID].price);
+        $("#change-brand").val(tempProduct[tempID].brand);
+    });
+
+    // --- saving product changes
+    $(document).on("click","#change-product-info",function(event){
+
+        var newProduct = {
+            name: $("#change-product-name").val(),
+            category: $("#change-category").val(),
+            brand: $("#change-brand").val(),
+            price: $("#change-price").val(),
+            quantity: $("#change-quantity").val(),
+            id: tempProduct[tempID].id
+        };
+        // var newAmount = $("#change-quantity").val();
+        // console.log("definitely not id: "+tempProduct[tempID].id);
+      
+            // $.put("/updateInventory", {data: newProduct, quantity: newAmount, id: tempProduct[tempID].id},function(){
+            //     //Redirect to my inv page
+            //     console.log("Changed made");
+            // });
+
+        $.ajax({
+            method: "PUT",
+            url: "/updateInventory",
+            data: newProduct
+        })
+        
+    });
 });
 
