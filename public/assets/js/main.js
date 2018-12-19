@@ -1,6 +1,8 @@
 $(function () {
     var searchText = $("#searchText");
 
+
+    //To find inventory for an specific user
     $.get("/userLogin", function(data) {   
         $.get("/myInventory/" + data, function(newData){
             let inv = JSON.parse(newData)
@@ -41,7 +43,7 @@ $(function () {
         })
     });
 
-
+    //To logout
     $('#logout').on('click', () => {
 
         $.get("/logout", () => {
@@ -123,5 +125,14 @@ $(function () {
         });
 
     });
+
+    
+    $('#search').on('click', (req, res) => {
+        window.location.href = '/search';
+    })
+
+    $('#inventory').on('click', (req, res) => {
+        window.location.href = '/dashboard';
+    })
 
 })

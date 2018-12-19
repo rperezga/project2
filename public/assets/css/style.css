@@ -27,3 +27,15 @@ body{
     margin-right: 40px;
     margin-top: 20px;
 }
+
+#search{
+    float: right;
+    margin-right: 40px;
+    margin-top: 20px;
+}
+
+#inventory{
+    float: right;
+    margin-right: 40px;
+    margin-top: 20px;
+}
