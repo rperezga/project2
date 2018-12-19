@@ -113,6 +113,7 @@ $(function () {
         })
     }
 
+    // --- add products based on searching
     $(document).on("click", "#add", function () {
 
         toEdit = $(this).parent().attr("id");
