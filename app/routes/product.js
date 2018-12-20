@@ -53,6 +53,21 @@ module.exports = function (app) {
     })
   });
 
+  app.put("/updateInventory", function(req, res, err){
+    var changeData = {
+      name: req.body.data.name,
+      category: req.body.data.category,
+      brand: req.body.data.brand,
+      price: req.body.data.price,
+      quantity: req.body.quantity
+    }
+    console.log("TEST ID: "+req.body.id);
+    db.product.update(changeData,{ where: { id: req.body.id}})
+      .then(function (response){
+      res.json(response)
+    })
+      .catch(err)
+  });
 
   app.get("/search", function (req, res) {
     res.render('search');
