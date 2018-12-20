@@ -19,11 +19,11 @@ app.use(passport.session()); // persistent login sessions
 app.use(express.static("public"));
 
 //For Handlebars
-app.engine('hbs', exphbs({extname: '.hbs', defaultLayout: "main"}));
-app.set('view engine', '.hbs');
+// app.engine('hbs', exphbs({extname: '.hbs', defaultLayout: "main"}));
+// app.set('view engine', '.hbs');
 
 app.get('/', function (req, res) {
-    res.render("signin");
+    res.render("/index.html");
 });
 
 //Models
