@@ -79,7 +79,7 @@
 					<div class="col">
 						<div style="text-align: center;">
 							<input class="btn" type="submit" value="Search" />
-							<button type="button" data-toggle='modal' data-target='#add-inv-Modal' id="manual-add-button" class="btn btn-warning">Warning</button>
+							<button type="button" data-toggle='modal' data-target='#add-inv-Modal' id="manual-add-button" class="btn btn-warning">Manual Add</button>
 						</div>
 
 					</div>
@@ -110,7 +110,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="inventoryModalTitle">Edit Product Information</h5>
+					<h5 class="modal-title" id="inventoryModalTitle">Manual Product Add</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -118,30 +118,30 @@
 				<div class="modal-body">
 					<form class="col s12">
 						<div class="form-group row">
-							<label for="change-product-name" class="col-2 col-form-label">Name</label>
+							<label for="new-product-name" class="col-2 col-form-label">Name</label>
 							<div class="col-10">
-								<input class="form-control" type="text" value="" id="change-product-name">
+								<input class="form-control" type="text" value="" id="new-product-name">
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label for="change-category" class="col-2 col-form-label">Category</label>
+							<label for="new-category" class="col-2 col-form-label">Category</label>
 							<div class="col-10">
-								<input class="form-control" type="text" value="" id="change-category">
+								<input class="form-control" type="text" value="" id="new-category">
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label for="change-quantity" class="col-2 col-form-label">Quantity</label>
+							<label for="new-quantity" class="col-2 col-form-label">Quantity</label>
 							<div class="col-10">
-								<input class="form-control" type="text" value="" id="change-quantity">
+								<input class="form-control" type="text" value="" id="new-quantity">
 							</div>
 						</div>
 
 						<div class="form-group row">
-							<label for="change-price" class="col-2 col-form-label">Price</label>
+							<label for="new-price" class="col-2 col-form-label">Price</label>
 							<div class="col-10">
-								<input class="form-control" type="text" value="" id="change-price">
+								<input class="form-control" type="text" value="" id="new-price">
 							</div>
 						</div>
 
@@ -154,7 +154,7 @@
 
 						<div class="col">
 							<div style="text-align: center;">
-								<input class="btn" id="new-product-add" type="submit" value="Change Info" />
+								<input class="btn" id="new-product-add" type="submit" value="Add Product" />
 							</div>
 						</div>
 					</form>
