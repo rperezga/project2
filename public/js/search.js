@@ -78,14 +78,23 @@ $(function(){
                 });
         
             });
+
+            // --- manually add in a new product
+            $(document).on("click", "#new-product-add", function () {
+                var newProduct = {
+                    name: $("#new-product-name").val(),
+                    category: $("#new-category").val(),
+                    brand: $("#new-brand").val(),
+                    price: $("#new-price").val(),
+                };
+                var newAmount = $("#new-quantity").val();
         
-            $('#search').on('click', (req, res) => {
-                window.location.href = '/search';
-            })
-        
-            $('#inventory').on('click', (req, res) => {
-                window.location.href = '/dashboard';
-            })
+                $.get("/userLogin", function (data) {
+                    $.post("/saveToInventory", ({ data: newProduct, quantity: newAmount, userId: data }), function () {
+                        //Redirect to my inv page
+                    })
+                });
+            });
         
             
 })
