@@ -5,7 +5,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/elements/fav.png">
+	<link rel="shortcut icon" href="img/icon.png">
 	<!-- Author Meta -->
 	<meta name="author" content="colorlib">
 	<!-- Meta Description -->
@@ -66,46 +66,48 @@
 
 	<div class="whole-wrap">
 		<div class="container">
-			<!--add products via search-->
-			<form id="search-form">
-				<div class="row">
-					<div class="col">
-						<div class="input-field">
-							<input id="searchText" type="text" class="validate" name="searchText">
-							<label for="searchText">Search</label>
+			<div class="card" style="margin-top: 25px;">
+				<div class="card-body">
+					<!--add products via search-->
+					<div class="row">
+						<div class="col">
+							<form id="search-form">
+								<h4>Search for a product:</h4>
+								<div class="input-field" style="margin-top: 10px;">
+									<div class="row">
+										<div class="col-md-8">
+											<input id="searchText" type="text" class="validate" name="searchText" style="height: 34px; width: 100%">
+										</div>
+										<div class="col-md-4">
+											<input class="btn" type="submit" value="Search" />
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col">
+							<h4>Add a product manually:</h4>
+							<button type="button" data-toggle='modal' data-target='#add-inv-Modal' id="manual-add-button" class="btn btn-warning"
+							 style="margin-top: 10px;">Manual
+								Add</button>
 						</div>
 					</div>
-					<div class="col">
-						<div style="text-align: center;">
-							<input class="btn" type="submit" value="Search" />
-							<button type="button" data-toggle='modal' data-target='#add-inv-Modal' id="manual-add-button" class="btn btn-warning">Manual Add</button>
-						</div>
 
-					</div>
 				</div>
-			</form>
+			</div>
+
 
 			<div id="products-label"></div>
 
 			<table class="table table-hover" style="margin-top: 30px;">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">Name</th>
-						<th scope="col">Category</th>
-						<th scope="col">Brand</th>
-						<th scope="col">Price</th>
-						<th scope="col">Quantity</th>
-						<th scope="col">Add</th>
-					</tr>
-				</thead>
+				<thead class="thead-dark" id="rowHead"> </thead>
 				<tbody id="dataProducts"> </tbody>
 			</table>
 		</div>
 	</div>
 
 	<!--manually add new product-->
-	<div class="modal fade" id="add-inv-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-	 aria-hidden="true">
+	<div class="modal fade" id="add-inv-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">

@@ -77,12 +77,10 @@ $(function () {
                 id: tempProduct[tempID].id
             };
 
-            $.ajax({
-                method: "put",
-                url: "/updateInventory",
-                data: newProduct
-            }).then(function(){
-                window.location.href = "../dashboard.html";
+            console.log('New Product: ' + newProduct)
+
+            $.put("/updateInventory", newProduct, (req, res) => {
+                // window.location.href = "../dashboard.html";
             });
         });
         

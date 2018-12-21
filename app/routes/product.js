@@ -53,6 +53,7 @@ module.exports = function (app) {
       console.log(dbProd.product)
     })
   });
+  
 
   // update data
   app.put("/updateInventory", function(req, res, err){

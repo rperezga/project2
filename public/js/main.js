@@ -185,7 +185,7 @@ $(document).ready(function () {
   });
 
   $('#logout').on('click', () => {
-    $.get("/logout", () => { });    
+    $.get("/logout", () => { });
   });
 
   $('#registerForm').submit(function (event) {
@@ -202,50 +202,5 @@ $(document).ready(function () {
       window.location.href = "/signin.html";
     });
   });
-
-  // --- saving product changes
-  $('#updateForm').submit(function (event) {
-    event.preventDefault();
-
-    var newProduct = {
-        name: $("#change-product-name").val(),
-        category: $("#change-category").val(),
-        brand: $("#change-brand").val(),
-        price: $("#change-price").val(),
-        quantity: $("#change-quantity").val(),
-        // id: tempProduct[tempID].id
-    };
-    var newAmount = $("#change-quantity").val();
-
-    console.log(newProduct)
-    // console.log("definitely not id: "+tempProduct[tempID].id);
-  
-    // $.put("/updateInventory", {data: newProduct, quantity: newAmount, id: tempProduct[tempID].id},function(){
-    //     //Redirect to my inv page
-    //     console.log("Changed made");
-    // });
-
-    // $.ajax({
-    //     method: "PUT",
-    //     url: "/updateInventory",
-    //     data: newProduct
-    // }).then(function(){
-    //     window.location.href = "/dashboard";
-    // });
-    
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
