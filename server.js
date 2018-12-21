@@ -4,12 +4,10 @@ var passport = require('passport')
 var session = require('express-session')
 var bodyParser = require('body-parser')
 var env = require('dotenv').load()
-var exphbs = require('express-handlebars')
 
 //For BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 // For Passport
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
@@ -17,10 +15,6 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 app.use(express.static("public"));
-
-//For Handlebars
-// app.engine('hbs', exphbs({extname: '.hbs', defaultLayout: "main"}));
-// app.set('view engine', '.hbs');
 
 app.get('/', function (req, res) {
     res.render("/index.html");
@@ -43,7 +37,8 @@ models.sequelize.sync().then(function () {
     console.log(err, "Something went wrong with the Database Update!")
 });
 
-app.listen(5000, function (err) {
+var PORT = process.env.PORT || 5000;
+app.listen(PORT, function (err) {
     if (!err)
-        console.log("Site is live"); else console.log(err)
+        console.log("Server listening on: http://localhost:" + PORT);
 });
