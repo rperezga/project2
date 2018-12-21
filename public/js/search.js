@@ -1,5 +1,6 @@
 $(function () {
     var searchText = $("#searchText");
+<<<<<<< HEAD
     //  product search functionality
     $(document).on("submit", "#search-form", handleSearchFormSubmit);
 
@@ -62,6 +63,71 @@ $(function () {
                     .append(colAdd)
 
                 $("#dataProducts").append(rowData);
+=======
+            //  product search functionality
+            $(document).on("submit", "#search-form", handleSearchFormSubmit);
+
+            function handleSearchFormSubmit(event) {
+                event.preventDefault();
+        
+                if (!searchText.val().trim().trim()) {
+                    return;
+                }
+                searchCriteria({
+                    search: searchText
+                        .val()
+                        .trim()
+                });
+            }
+        
+            let dataResponse = [];
+        
+            function searchCriteria(searchData) {
+        
+                $("#dataLogin").empty();
+        
+                $.get("/search/" + searchData.search, function (data) {
+                    dataResponse = JSON.parse(data).results;
+        
+                    $("#products-label").append("<h3>Products</h3>");
+        
+                    for (let i = 0; i < 10; i++) {
+        
+                        var rowData = $("<tr>");
+                        rowData.addClass("product-data");
+                        rowData.attr("id", i);
+        
+                        var colName = $("<td>");
+                        colName.append(dataResponse[i].name);
+        
+                        var colCategory = $("<td>");
+                        colCategory.append(dataResponse[i].category);
+        
+                        var colBrand = $("<td>");
+                        colBrand.append(dataResponse[i].brand);
+        
+                        var colPrice = $("<td>");
+                        colPrice.append(dataResponse[i].price);
+        
+        
+        
+                        var colQuantity = $("<td id='quantity'>");
+                        colQuantity.append("<input type='text' value='0' style='width: 50px; text-align: center;'></input>");
+        
+                        var colAdd = $("<td id='add'>");
+                        colAdd.append("<a type='button' class='btn btn-light'>Add</a>");
+        
+                        rowData.append(colName)
+                            .append(colCategory)
+                            .append(colBrand)
+                            .append(colPrice)
+                            .append(colQuantity)
+                            .append(colAdd)
+        
+                        $("#dataProducts").append(rowData);
+                    }
+                })
+>>>>>>> cf152e53630044a68739bb9f7a52a55f78a47ea1
             }
         })
     }

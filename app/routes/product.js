@@ -78,5 +78,19 @@ module.exports = function (app) {
     res.render('search');
   });
 
+  // delete data
+  app.delete("/deleteItem/:id", function(req, res) {
+    
+    db.product.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(dbTodo) {
+      res.json(dbTodo);
+    });
+
+  });
+
+
 };
 

@@ -28,7 +28,7 @@ $(function () {
                 colBrand.append(inv[i].brand);
 
                 var colPrice = $("<td>");
-                colPrice.append("$ "+inv[i].price);
+                colPrice.append("$"+inv[i].price);
 
                 var colQuantity = $("<td>");
                 colQuantity.append(inv[i].quantity);
@@ -83,5 +83,19 @@ $(function () {
                 // window.location.href = "../dashboard.html";
             });
         });
-        
+    
+    // delete item
+    $(document).on("click","#delete-item",function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        itemLocation = tempProduct[tempID].id;
+
+        $.ajax({
+            method: "DELETE",
+            url: "/deleteItem/"+itemLocation
+        }).then(function(){
+            window.location.href = "../dashboard.html";
+        })
+    });
+
 })
