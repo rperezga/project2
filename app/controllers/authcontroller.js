@@ -2,15 +2,15 @@ var exports = module.exports = {}
 
 
 exports.signup = function (req, res) {
-    res.render('signup');
+    res.send('signup');
 }
 
 exports.signin = function (req, res) {
-    res.render('signin');
+    res.send('signin');
 }
 
 exports.dashboard = function (req, res) {
-    res.render('dashboard');
+    res.send('dashboard');
 }
 
 exports.logout = function (req, res) {
