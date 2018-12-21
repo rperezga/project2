@@ -39,6 +39,7 @@ module.exports = function (app) {
     res.send(JSON.stringify(req.user.id));
   });
 
+  // save to database
   app.post("/saveToInventory", function (req, res) {
     let data = {
       name: req.body.data.name,
@@ -53,22 +54,23 @@ module.exports = function (app) {
     })
   });
 
+  // update data
   app.put("/updateInventory", function(req, res, err){
     var changeData = {
-      name: req.body.data.name,
-      category: req.body.data.category,
-      brand: req.body.data.brand,
-      price: req.body.data.price,
+      name: req.body.name,
+      category: req.body.category,
+      brand: req.body.brand,
+      price: req.body.price,
       quantity: req.body.quantity
     }
+    console.log("TEST ITEM ID: "+req.body.id);
 
-    console.log(changeData)
-    
     db.product.update(changeData, { where: { id: req.body.id}} )
       .then(function (response){
-      res.json(response)
-    })
-      .catch(err)
+        res.json(response);
+      })
+        .catch(err);
+
   });
 
   app.get("/search", function (req, res) {

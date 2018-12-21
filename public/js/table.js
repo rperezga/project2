@@ -28,13 +28,13 @@ $(function () {
                 colBrand.append(inv[i].brand);
 
                 var colPrice = $("<td>");
-                colPrice.append("$"+inv[i].price);
+                colPrice.append("$ "+inv[i].price);
 
                 var colQuantity = $("<td>");
                 colQuantity.append(inv[i].quantity);
 
                 var colEdit = $("<td id='edit'>");
-                colEdit.append("<a type='button' class='btn btn-primary' data-toggle='modal' data-target='#inventoryModal' id='inv-modal' data-inv='"+i+"'>Edit</a>");
+                colEdit.append("<a type='button' class='btn btn-light' data-toggle='modal' data-target='#inventoryModal' id='inv-modal' data-inv='"+i+"'>Edit</a>");
 
                 rowData.append(colName)
                     .append(colCategory)
@@ -64,4 +64,26 @@ $(function () {
             $("#change-price").val(tempProduct[tempID].price);
             $("#change-brand").val(tempProduct[tempID].brand);
         });
+
+        // updates info
+        $(document).on("click","#change-product-info",function(event){
+            event.preventDefault();
+            var newProduct = {
+                name: $("#change-product-name").val(),
+                category: $("#change-category").val(),
+                brand: $("#change-brand").val(),
+                price: $("#change-price").val(),
+                quantity: $("#change-quantity").val(),
+                id: tempProduct[tempID].id
+            };
+
+            $.ajax({
+                method: "put",
+                url: "/updateInventory",
+                data: newProduct
+            }).then(function(){
+                window.location.href = "../dashboard.html";
+            });
+        });
+        
 })
