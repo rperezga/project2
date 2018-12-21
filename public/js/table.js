@@ -34,7 +34,7 @@ $(function () {
                 colQuantity.append(inv[i].quantity);
 
                 var colEdit = $("<td id='edit'>");
-                colEdit.append("<a class='waves-effect waves-light btn modal-trigger' id='inv-modal' href='#modal1' data-inv='"+i+"'>Edit</a>");
+                colEdit.append("<a type='button' class='btn btn-primary' data-toggle='modal' data-target='#inventoryModal' id='inv-modal' data-inv='"+i+"'>Edit</a>");
 
                 rowData.append(colName)
                     .append(colCategory)
@@ -47,4 +47,21 @@ $(function () {
             }
         })
     });
+
+        // --- editing existing inventory
+    
+        var tempID;
+        $(document).on("click","#inv-modal",function(){
+    
+            tempID = $(this).attr("data-inv");
+            console.log("ID: "+tempID);
+    
+            console.log(tempProduct[tempID]);
+    
+            $("#change-product-name").val(tempProduct[tempID].name);
+            $("#change-category").val(tempProduct[tempID].category);
+            $("#change-quantity").val(tempProduct[tempID].quantity);
+            $("#change-price").val(tempProduct[tempID].price);
+            $("#change-brand").val(tempProduct[tempID].brand);
+        });
 })
