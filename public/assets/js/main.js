@@ -181,6 +181,7 @@ $(function () {
 
     // --- saving product changes
     $(document).on("click","#change-product-info",function(event){
+        event.preventDefault();
 
         var newProduct = {
             name: $("#change-product-name").val(),
@@ -202,6 +203,8 @@ $(function () {
             method: "PUT",
             url: "/updateInventory",
             data: newProduct
+        }).then(function(){
+            window.location.href = "/dashboard";
         });
         
     });
