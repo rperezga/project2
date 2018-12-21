@@ -51,7 +51,7 @@ $(function(){
                         colQuantity.append("<input type='text' value='0' style='width: 50px; text-align: center;'></input>");
         
                         var colAdd = $("<td id='add'>");
-                        colAdd.append("<i class='material-icons'>add</i>");
+                        colAdd.append("<a type='button' class='btn btn-light'>Add</a>");
         
                         rowData.append(colName)
                             .append(colCategory)
