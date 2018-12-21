@@ -85,4 +85,5 @@ $(function () {
                 window.location.href = "../dashboard.html";
             });
         });
+        
 })
