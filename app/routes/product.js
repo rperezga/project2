@@ -61,7 +61,9 @@ module.exports = function (app) {
       price: req.body.data.price,
       quantity: req.body.quantity
     }
-    console.log("TEST ID: "+req.body.id);
+
+    console.log(changeData)
+    
     db.product.update(changeData, { where: { id: req.body.id}} )
       .then(function (response){
       res.json(response)
