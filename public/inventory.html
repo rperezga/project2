@@ -5,7 +5,7 @@
 	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
-	<link rel="shortcut icon" href="img/elements/fav.png">
+	<link rel="shortcut icon" href="img/icon.png">
 	<!-- Author Meta -->
 	<meta name="author" content="colorlib">
 	<!-- Meta Description -->
@@ -15,7 +15,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Car Rentals</title>
+	<title>GSC - Product Search</title>
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 	<!--
@@ -40,10 +40,9 @@
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li class="menu-active"><a href="index.html">Home</a></li>
-						<li><a href="Dashboard.html">Dashboard</a></li>
-						<li><a href="inventory.html">Manage Inventory</a></li>
-						<li><a href="">Log Out</a></li>
+						<li><a href="dashboard.html">Dashboard</a></li>
+						<li><a href="inventory.html">Product Search</a></li>
+						<li><a href="index.html" id="logout">Log Out</a></li>
 					</ul>
 				</nav><!-- #nav-menu-container -->
 			</div>
@@ -56,7 +55,7 @@
 		<div class="container">
 			<div class="row d-flex align-items-center justify-content-center">
 				<div class="about-content col-lg-12">
-					<h1 class="text-white">Manage Inventory</h1>
+					<h1 class="text-white">Product Search</h1>
 				</div>
 			</div>
 		</div>
@@ -67,46 +66,48 @@
 
 	<div class="whole-wrap">
 		<div class="container">
-			<!--add products via search-->
-			<form id="search-form">
-				<div class="row">
-					<div class="col">
-						<div class="input-field">
-							<input id="searchText" type="text" class="validate" name="searchText">
-							<label for="searchText">Search</label>
+			<div class="card" style="margin-top: 25px;">
+				<div class="card-body">
+					<!--add products via search-->
+					<div class="row">
+						<div class="col">
+							<form id="search-form">
+								<h4>Search for a product:</h4>
+								<div class="input-field" style="margin-top: 10px;">
+									<div class="row">
+										<div class="col-md-8">
+											<input id="searchText" type="text" class="validate" name="searchText" style="height: 34px; width: 100%">
+										</div>
+										<div class="col-md-4">
+											<input class="btn" type="submit" value="Search" />
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col">
+							<h4>Add a product manually:</h4>
+							<button type="button" data-toggle='modal' data-target='#add-inv-Modal' id="manual-add-button" class="btn btn-warning"
+							 style="margin-top: 10px;">Manual
+								Add</button>
 						</div>
 					</div>
-					<div class="col">
-						<div style="text-align: center;">
-							<input class="btn" type="submit" value="Search" />
-							<button type="button" data-toggle='modal' data-target='#add-inv-Modal' id="manual-add-button" class="btn btn-warning">Manual Add</button>
-						</div>
 
-					</div>
 				</div>
-			</form>
+			</div>
+
 
 			<div id="products-label"></div>
 
 			<table class="table table-hover" style="margin-top: 30px;">
-				<thead class="thead-dark">
-					<tr>
-						<th scope="col">Name</th>
-						<th scope="col">Category</th>
-						<th scope="col">Brand</th>
-						<th scope="col">Price</th>
-						<th scope="col">Quantity</th>
-						<th scope="col">Add</th>
-					</tr>
-				</thead>
+				<thead class="thead-dark" id="rowHead"> </thead>
 				<tbody id="dataProducts"> </tbody>
 			</table>
 		</div>
 	</div>
 
 	<!--manually add new product-->
-	<div class="modal fade" id="add-inv-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-	 aria-hidden="true">
+	<div class="modal fade" id="add-inv-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -194,14 +195,6 @@
 					</div>
 				</div>
 
-
-				<p class="mt-50 mx-auto footer-text col-lg-12">
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-					Copyright &copy;
-					<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i
-					 class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-					<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-				</p>
 			</div>
 		</div>
 	</footer>
