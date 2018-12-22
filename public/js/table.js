@@ -36,12 +36,16 @@ $(function () {
                 var colEdit = $("<td id='edit'>");
                 colEdit.append("<a type='button' class='btn btn-light' data-toggle='modal' data-target='#inventoryModal' id='inv-modal' data-inv='"+i+"'>Edit</a>");
 
+                var colMargin = $("<td id='Margins'>");
+                colMargin.append("<a type='button' class='btn btn-light' data-toggle='modal' data-target='#margin-modal' id='marginModal' data-inv='"+i+"'>Margins</a>");
+
                 rowData.append(colName)
                     .append(colCategory)
                     .append(colBrand)
                     .append(colPrice)
                     .append(colQuantity)
                     .append(colEdit)
+                    .append(colMargin)
 
                 $("#dataProducts").append(rowData);
             }
@@ -90,7 +94,7 @@ $(function () {
     $(document).on("click","#delete-item",function(event){
         event.preventDefault();
         event.stopPropagation();
-        itemLocation = tempProduct[tempID].id;
+        var itemLocation = tempProduct[tempID].id;
 
         $.ajax({
             method: "DELETE",
@@ -98,6 +102,29 @@ $(function () {
         }).then(function(){
             window.location.href = "../dashboard.html";
         })
+    });
+
+    // margin modal
+    $(document).on("click","#marginModal",function(event){
+        event.preventDefault();
+        console.log("MARGIN MODAL CLICKED");
+        tempID = $(this).attr("data-inv");
+
+        $("#current-price").empty();
+        $("#current-price").append("<p class='pricing-label'><b>Current Price:</b> </p><p class='pricing'>$ "+tempProduct[tempID].price+"</p>");
+        $("#three-percent").empty();
+        $("#three-percent").append("<p class='pricing-label'><b>3% Margin:</b> </p><p class='pricing'>$ "+(tempProduct[tempID].price * 1.03).toFixed(2)+"</p>");
+        $("#five-percent").empty();
+        $("#five-percent").append("<p class='pricing-label'><b>5% Margin:</b> </p><p class='pricing'>$ "+(tempProduct[tempID].price * 1.05).toFixed(2)+"</p>");
+        $("#seven-percent").empty();
+        $("#seven-percent").append("<p class='pricing-label'><b>7% Margin:</b> </p><p class='pricing'>$ "+(tempProduct[tempID].price * 1.07).toFixed(2)+"</p>");
+        $("#nine-percent").empty();
+        $("#nine-percent").append("<p class='pricing-label'><b>9% Margin:</b> </p><p class='pricing'>$ "+(tempProduct[tempID].price * 1.09).toFixed(2)+"</p>");
+
+        $(".pricing-label").css("float","left");
+        $(".pricing").css("float","right");
+        $(".pricing-label").css("margin","10px");
+        $(".pricing").css("margin","10px");
     });
 
 })

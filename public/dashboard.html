@@ -67,6 +67,10 @@
 	<div class="whole-wrap">
 		<div class="container">
 			<div class="section-top-border">
+				<div style="text-align: right">
+					<button type="button" data-toggle='modal' data-target='#add-inv-Modal' id="manual-add-button" class="btn btn-warning">Manual
+						Add</button>
+				</div>
 				<table class="table table-hover" style="margin-top: 30px;">
 					<thead class="thead-dark">
 						<tr>
@@ -75,7 +79,8 @@
 							<th scope="col">Brand</th>
 							<th scope="col">Price</th>
 							<th scope="col">Quantity</th>
-							<th scope="col">Add</th>
+							<th scope="col">Edit</th>
+							<th scope="col">Margins</th>
 						</tr>
 					</thead>
 					<tbody id="dataProducts"> </tbody>
@@ -85,13 +90,14 @@
 	</div>
 	</div>
 
-			<!--change product info with modal-->
-			<div class="modal fade" id="inventoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-				  <div class="modal-content">
-					<div class="modal-header">
-					  <h5 class="modal-title" id="inventoryModalTitle">Edit Product Information</h5>
-					  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	<!--change product info with modal-->
+	<div class="modal fade" id="inventoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	 aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="inventoryModalTitle">Edit Product Information</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -139,8 +145,87 @@
 								<a type="button" class="btn btn-outline-primary" id="delete-item">Delete Item</a>
 							</div>
 						</div>
-						
+
 					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--manually add new product-->
+	<div class="modal fade" id="add-inv-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="inventoryModalTitle">Manual Product Add</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form class="col s12">
+						<div class="form-group row">
+							<label for="new-product-name" class="col-2 col-form-label">Name</label>
+							<div class="col-10">
+								<input class="form-control" type="text" value="" id="new-product-name">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="new-category" class="col-2 col-form-label">Category</label>
+							<div class="col-10">
+								<input class="form-control" type="text" value="" id="new-category">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="new-quantity" class="col-2 col-form-label">Quantity</label>
+							<div class="col-10">
+								<input class="form-control" type="text" value="" id="new-quantity">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="new-price" class="col-2 col-form-label">Price</label>
+							<div class="col-10">
+								<input class="form-control" type="text" value="" id="new-price">
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label for="new-brand" class="col-2 col-form-label">Brand</label>
+							<div class="col-10">
+								<input class="form-control" type="text" value="" id="new-brand">
+							</div>
+						</div>
+
+						<div class="col">
+							<div style="text-align: center;">
+								<input class="btn" id="new-product-add" type="submit" value="Add Product" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--calculating margins-->
+	<div class="modal" id="margin-modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Margins</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="row"><div id="current-price"></div></div>
+					<div class="row"><div id="three-percent"></div></div>
+					<div class="row"><div id="five-percent"></div></div>
+					<div class="row"><div id="seven-percent"></div></div>
+					<div class="row"><div id="nine-percent"></div></div>
 				</div>
 			</div>
 		</div>
@@ -204,6 +289,7 @@
 	<script src="js/parallax.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/table.js"></script>
+	<script src="js/search.js"></script>
 </body>
 
 </html>

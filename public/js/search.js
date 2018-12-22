@@ -71,11 +71,17 @@ $(function(){
                 toEdit = $(this).parent().attr("id");
                 let quantity = $(this).closest('tr').find('input').val();
         
-                $.get("/userLogin", function (data) {
-                    $.post("/saveToInventory", ({ data: dataResponse[toEdit], quantity: quantity, userId: data }), function () {
-                        //Redirect to my inv page
+                if(quantity>0){
+                    $.get("/userLogin", function (data) {
+                        $.post("/saveToInventory", ({ data: dataResponse[toEdit], quantity: quantity, userId: data }), function () {
+                            //Redirect to my inv page
+                        });
+                    }).then(function(){
+                        $(this).closest('tr').find('input').val("0");
                     })
-                });
+                } else {
+                    alert("You must input a quantity greater than 0!");
+                }
         
             });
 
@@ -92,7 +98,10 @@ $(function(){
                 $.get("/userLogin", function (data) {
                     $.post("/saveToInventory", ({ data: newProduct, quantity: newAmount, userId: data }), function () {
                         //Redirect to my inv page
+                        console.log("New Product: "+newProduct);
                     })
+                }).then(function(){
+                    window.location.href = "../dashboard.html";
                 });
             });
         
