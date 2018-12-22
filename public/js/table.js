@@ -90,8 +90,7 @@ $(function () {
     
     // delete item
     $(document).on("click","#delete-item",function(event){
-        event.preventDefault();
-        event.stopPropagation();
+
         var itemLocation = tempProduct[tempID].id;
 
         $.ajax({

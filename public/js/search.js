@@ -98,7 +98,6 @@ $(function () {
                 $.get("/userLogin", function (data) {
                     $.post("/saveToInventory", ({ data: newProduct, quantity: newAmount, userId: data }), function () {
                         //Redirect to my inv page
-                        console.log("New Product: "+newProduct);
                     })
                 }).then(function(){
                     window.location.href = "../dashboard.html";
